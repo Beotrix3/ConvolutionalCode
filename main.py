@@ -10,13 +10,13 @@ def text_bin(text,encoding="utf-8",errors = "surrogatepass"):
 entry_text = input("Text: ")
 entry_text = text_bin(entry_text)
 print(entry_text)
-n_sum = int(input("Summators' count: "))
+n_sum = int(input("Количество сумматоров: "))
 summator = []
 for i in range(n_sum):
-    n_reg = int(input("Count of connected registers:"))
+    n_reg = int(input("Количество регистров:"))
     mid_summator = []
     for j in range(n_reg):
-        mid_summator.append(int(input("Register_"+str(i+1)+": ")))
+        mid_summator.append(int(input("Регистр_"+str(i+1)+": ")))
         if mid_summator[j]>3:
             exit()
     summator.append(mid_summator)
@@ -41,7 +41,8 @@ gx =[]
 for i in range(n_sum):
     gx.append(np.poly1d(coded_sum[i]))
     print("_______g"+str(i+1)+"(x)_________")
-    print(np.poly1d(coded_sum[i])) ##траблы c x^2
+    ##ошибки с x^2
+    print(np.poly1d(coded_sum[i]))
 
 cx = []
 for i in range(len(gx)):
@@ -83,11 +84,11 @@ print(pol)
 coded_text = ""
 for i in range(len(pol)):
     coded_text = coded_text + pol[i]
-print("____coded_____")
+print("____Закодированно_____")
 print(coded_text)
 print(len(entry_text))
 print(len(coded_text))
-print("____decoded_____")
+print("____Декодированно_____")
 from numpy.polynomial import polynomial
 dec_pol = [coded_text[i:i+n_sum] for i in range(0, len(coded_text), n_sum)]
 print(dec_pol)
