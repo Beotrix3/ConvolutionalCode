@@ -7,7 +7,7 @@ def text_bin(text,encoding="utf-8",errors = "surrogatepass"):
     bits = bin(int.from_bytes(text.encode(encoding,errors),"big"))[2:]
     return bits.zfill(8*((len(bits)+7)//8))
 
-entry_text = input("Text: ")
+entry_text = input("Текст: ")
 entry_text = text_bin(entry_text)
 print(entry_text)
 n_sum = int(input("Количество сумматоров: "))
@@ -20,9 +20,9 @@ for i in range(n_sum):
         if mid_summator[j]>3:
             exit()
     summator.append(mid_summator)
-print("______sum__________")
+print("сумматоры")
 print(summator)
-print("______splitted_text__________")
+print("просплитованный текст")
 
 coded_sum = []
 for i in range(len(entry_text)):
@@ -57,7 +57,7 @@ for i in range(len(cx)):
     print("______c"+str(i+1)+"(x)__________")
     print(cx[i])
     f.append(np.asarray(cx[i].coef,list).tolist())
-print("_______coef_________")
+print("коэффициент")
 
 c = 0
 for i in range(len(f)):
@@ -84,11 +84,11 @@ print(pol)
 coded_text = ""
 for i in range(len(pol)):
     coded_text = coded_text + pol[i]
-print("____Закодированно_____")
+print("Закодированно")
 print(coded_text)
 print(len(entry_text))
 print(len(coded_text))
-print("____Декодированно_____")
+print("Декодированно")
 from numpy.polynomial import polynomial
 dec_pol = [coded_text[i:i+n_sum] for i in range(0, len(coded_text), n_sum)]
 print(dec_pol)
