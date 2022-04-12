@@ -288,7 +288,7 @@ class Ui_MainWindow(object):
                 self.coded_label.setText(_translate("MainWindow", "Поле для кода"))
                 self.label.setText(_translate("MainWindow", "Количество сумматоров и регистров"))
                 self.label_2.setText(_translate("MainWindow", "Лабораторная работа №2 "))
-                self.label_3.setText(_translate("MainWindow", "Самый модный в мире кодер и декодер сверточного кода"))
+                self.label_3.setText(_translate("MainWindow", "Нереальный кодер и декодер сверточного кода"))## вывод текста
 
 from myGUI import Ui_MainWindow
 class mywindow(QtWidgets.QMainWindow):
