@@ -112,34 +112,34 @@ class Ui_MainWindow(object):
 
                         def text_bin(text, encoding="utf-8", errors="surrogatepass"):
                                 bits = bin(int.from_bytes(text.encode(encoding, errors), "big"))[2:]
-                                return bits.zfill(8 * ((len(bits) + 7) // 8)) ##bin функци перевода в 2-ичный int - перевод символа в числа encod - utf-8 , перевод под опр форму zfill - добавление нулей
+                                return bits.zfill(8 * ((len(bits) + 7) // 8))
 
                         print("Кодирование")
                         entry_text = self.entry_text.text()
                         print(entry_text)
                         entry_text = text_bin(entry_text)
-                        print(entry_text) ## забрать текст из ввода
-                        summator = [] ##хранилище сумматоров
+                        print(entry_text)
+                        summator = []
                         reg = self.reg.text()
                         reg = reg + ";"
-                        mid_summator = [] ## промежуточная переменная по ячейкам колво сумматоров
+                        mid_summator = []
                         for j in range(len(reg)):
-                            if reg[j].isdigit():## проверка на цифры
-                                if int(reg[j]) > 3: ## количество ячеек регистра памяти по тз 3 , проверка на меньше 3 иначе выход
+                            if reg[j].isdigit():
+                                if int(reg[j]) > 3:
                                     exit()
-                                mid_summator.append(int(reg[j])) ##заполнение промежуточной переменной
+                                mid_summator.append(int(reg[j]))
                             if reg[j] == ";":
-                                summator.append(mid_summator) ## в список сумматор отпр переменные мид сум
-                                mid_summator = [] ##сброс
+                                summator.append(mid_summator)
+                                mid_summator = []
                         print("сумматоры")
                         print(summator)
                         print("просплитованный текст")
                         coded_sum = []
                         for i in range(len(entry_text)):
                             coded_sum.append(int(entry_text[i]))
-                        print(coded_sum)## запись из строки в список ф-я полинома только списки
+                        print(coded_sum)
                         print("i(x) - полином от входной строки")
-                        ix = np.poly1d(coded_sum) ##построение полинома
+                        ix = np.poly1d(coded_sum)
                         print(ix)
                         coded_sum = []
                         for j in range(len(summator)):
@@ -147,55 +147,55 @@ class Ui_MainWindow(object):
                             for i in range(len(summator[j])):
                                 a[summator[j][i] - 1] = 1
                             coded_sum.append(a)
-                        gx = [] ## цикл записи по формату переменной a (перевод регистра в удобный вид для создания полинома)
+                        gx = []
                         for i in range(len(coded_sum)):
                             gx.append(np.poly1d(coded_sum[i]))
                             print("_______g" + str(i + 1) + "(x)_________")
-                            print(np.poly1d(coded_sum[i]))## вывод и показ gx
+                            print(np.poly1d(coded_sum[i]))
 
                         cx = []
                         for i in range(len(gx)):
                             cx.append(ix * gx[i])
-                        f = [] ##создание полинома cx о средству умнож полиномов
+                        f = []
                         for i in range(len(cx)):
                             for j in range(len(cx[i])):
                                 if cx[i][j] % 2 == 0:
                                     cx[i][j] = 0
                                 else:
-                                    cx[i][j] = 1 ## фильтрация : if - проверка на четность, else - на нечет
+                                    cx[i][j] = 1
                             print("______c" + str(i + 1) + "(x)__________")
                             print(cx[i])
-                            f.append(np.asarray(cx[i].coef, list).tolist()) ## создание списков из коэф cx
+                            f.append(np.asarray(cx[i].coef, list).tolist())
                         print("коэффициент")
 
                         c = 0
                         for i in range(len(f)):
                             if c < len(f[i]):
                                 c = len(f[i])
-                        print("max = ", c) ## поиск макс длинного полинома
+                        print("max = ", c)
                         for i in range(len(f)):
-                            f[i] = f[i][::-1] ## реверс строки,метод zfill некоррект
+                            f[i] = f[i][::-1]
                             print(len(f[i]))
                             while len(f[i]) < c:
-                                f[i].append(0) ## добавлен нулей для приравн
+                                f[i].append(0)
                         print(f)
-                        pol = [] ## список коэф
+                        pol = []
                         for i in range(len(f)):
                             if len(pol) < len(f[i]):
                                 pol = f[i]
-                        f.remove(pol) ## отбор наибольшего cx - полином и его вычленение из списка
-                        if len(f) > 0: ## проверка не пустой ли список
+                        f.remove(pol)
+                        if len(f) > 0:
                             for i in range(len(f)):
                                 for j in range(len(f[i])):
                                     pol[j] = str(pol[j]) + str(f[i][j])
                         print("рез")
-                        print(pol) ## промежуточный вывод
-                        coded_text = "" ## закод послед полиномов
+                        print(pol)
+                        coded_text = ""
                         for i in range(len(pol)):
-                            coded_text = coded_text + pol[i] ## заполнение закод послед
+                            coded_text = coded_text + pol[i]
                         print("Закодированно")
                         print(coded_text)
-                        self.coded_text.setText(coded_text) ## финальный вывод закод помлед в приложение
+                        self.coded_text.setText(coded_text)
                         print(len(entry_text))
                         print(len(coded_text))
 
@@ -239,35 +239,35 @@ class Ui_MainWindow(object):
                             print("_______g" + str(i + 1) + "(x)_________")
                             print(np.poly1d(coded_sum[i]))
 
-                        dec_pol = [coded_text[i:i + len(coded_sum)] for i in range(0, len(coded_text), len(coded_sum))] ## dec.pol - деление в зависимости от количетва gx,
+                        dec_pol = [coded_text[i:i + len(coded_sum)] for i in range(0, len(coded_text), len(coded_sum))]
                         print(dec_pol)
-                        dec_willy = [] ## создание cx из закодированной послед
+                        dec_willy = []
                         for i in range(len(dec_pol)):
                             dec_willy.append(int(dec_pol[i][0]))
                         dec_willy = dec_willy[::-1]
-                        dec_willy = np.poly1d(dec_willy) ## конец создания
-                        dec_willy = np.polydiv(dec_willy, gx[0]) ## ix = cx/gx
+                        dec_willy = np.poly1d(dec_willy)
+                        dec_willy = np.polydiv(dec_willy, gx[0])
                         print("i(x) - полином от входной строки")
-                        print(dec_willy[0]) ## выход из polydiv списка с 2 списками вывод с индексом 0
-                        f = [] ## формирование вывода
-                        strok = "" ## поле для записи строки
-                        f = np.asarray(dec_willy[0].coef, list).tolist() ## извлекание коэф из списка dec_willy
+                        print(dec_willy[0])
+                        f = []
+                        strok = ""
+                        f = np.asarray(dec_willy[0].coef, list).tolist()
                         for i in range(len(f)):
                             f[i] = str(f[i])
-                            f[i] = f[i].replace(".0", "") ## преобразование строки
-                            f[i] = f[i].replace("-", "") ## преобразование строки
+                            f[i] = f[i].replace(".0", "")
+                            f[i] = f[i].replace("-", "")
                             if int(f[i]) % 2 == 0:
                                 f[i] = "0"
                             else:
-                                f[i] = "1" ## проверка на четность
+                                f[i] = "1"
                         for i in range(len(f)):
                             strok = strok + str(f[i])
-                        print("Кодированная строка") ## вывод закод символв
+                        print("Кодированная строка")
                         print(strok)
 
                         def textf(bits, encoding='utf-8', errors='surrogatepass'):
                             n = int(bits, 2)
-                            return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0' ## из 2-ичнго в символы
+                            return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0'
 
                         print("Декодированное слово")
                         print(textf(strok))
